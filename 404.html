@@ -455,7 +455,25 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="爆炸-页面炸没了！"><a href="#爆炸-页面炸没了！" class="headerlink" title="爆炸,页面炸没了！"></a>爆炸,页面炸没了！</h2>
+                <h2 id="爆炸-页面炸没了！"><a href="#爆炸-页面炸没了！" class="headerlink" title="爆炸,页面炸没了！"></a>爆炸,页面炸没了！</h2><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -699,6 +717,9 @@
                     <div class="summary block-with-text">
                         
                             爆炸,页面炸没了！
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src)
                         
                     </div>
                     <div class="publish-info">
@@ -737,6 +758,9 @@
                     <div class="summary block-with-text">
                         
                             爆炸,页面炸没了！
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src)
                         
                     </div>
                     <div class="publish-info">
