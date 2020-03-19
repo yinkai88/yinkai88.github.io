@@ -1,4 +1,4 @@
-! function () {
+!function () {
     var userAgentInfo = navigator.userAgent;
     var Agents = ["iPad", "iPhone", "Android",
         "SymbianOS", "Windows Phone",
@@ -51,11 +51,13 @@
             w.splice(w.indexOf(i), 1)
         }), m(b)
     }
+
     var u = document.createElement("canvas"),
         s = l(),
         c = "c_n" + s.l,
         e = u.getContext("2d"),
-        r, n, m = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (i) {
+        r, n,
+        m = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (i) {
             window.setTimeout(i, 1000 / 45)
         },
         a = Math.random,
@@ -65,7 +67,7 @@
             max: 20000
         };
     u.id = c;
-    u.style.cssText = "position:fixed;top:0;left:0;z-index:" + s.z + ";opacity:" + s.o;
+    u.style.cssText = "position:fixed;top:0;left:0;pointer-events: none;z-index:" + s.z + ";opacity:" + s.o;
     j("body")[0].appendChild(u);
     k(), window.onresize = k;
     window.onmousemove = function (i) {

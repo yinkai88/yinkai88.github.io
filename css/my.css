@@ -1,7 +1,7 @@
 /* Here is your custom css styles. */
 
 /* hexo-filter-github-emojis */
-.github-emoji{
+.github-emoji {
     height: 2em;
     width: 2em;
     display: inline-block !important;
@@ -9,9 +9,11 @@
     margin: 0 3px !important;
     padding: 0;
 }
-.github-emoji:hover{
+
+.github-emoji:hover {
     animation: emoji-face 5s infinite ease-in-out;
 }
+
 @keyframes emoji-face {
     2% {
         transform: translate(0, 1.5px) rotate(1.5deg);

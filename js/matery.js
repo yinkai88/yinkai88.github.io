@@ -46,7 +46,7 @@ $(function () {
      * 修复样式.
      */
     let fixStyles = function () {
-        fixPostCardWidth('navContainer');
+        fixPostCardWidth('navContainer', 'articles');
         fixPostCardWidth('artDetail', 'prenext-posts');
         fixFooterPosition();
     };
@@ -72,7 +72,7 @@ $(function () {
     let articleInit = function () {
         $('#articleContent a').attr('target', '_blank');
 
-        $('#articleContent img').each(function () {
+        $('#articleContent img').not('img.emoji').each(function () {
             let imgPath = $(this).attr('src');
             $(this).wrap('<div class="img-item" data-src="' + imgPath + '" data-sub-html=".caption"></div>');
             // 图片添加阴影
@@ -103,8 +103,14 @@ $(function () {
         $('#articleContent, #myGallery').lightGallery({
             selector: '.img-item',
             // 启用字幕
-            subHtmlSelectorRelative: true
+            subHtmlSelectorRelative: true,
+            showThumbByDefault: false  //2018.08.14
         });
+
+        /*网站加载逻辑问题 网站加载逻辑问题：图片最后加载*/
+        // $(document).find('img[data-original]').each(function () {
+        //     $(this).parent().attr("href", $(this).attr("data-original"));
+        // });
 
         // progress bar init
         const progressElement = window.document.querySelector('.progress-bar');
@@ -127,43 +133,35 @@ $(function () {
     /*监听滚动条位置*/
     let $nav = $('#headNav');
     let $backTop = $('.top-scroll');
-    // 当页面处于文章中部的时候刷新页面，因为此时无滚动，所以需要判断位置,给导航加上绿色。
-    showOrHideNavBg($(window).scrollTop());
     $(window).scroll(function () {
         /* 回到顶部按钮根据滚动条的位置的显示和隐藏.*/
         let scroll = $(window).scrollTop();
-        showOrHideNavBg(scroll);
-    });
-
-    function showOrHideNavBg(position) {
-        let showPosition = 100;
-        if (position < showPosition) {
+        if (scroll < 100) {
             $nav.addClass('nav-transparent');
             $backTop.slideUp(300);
         } else {
             $nav.removeClass('nav-transparent');
             $backTop.slideDown(300);
         }
-    }
+    });
+    /*支持二级菜单*/
+    $(".nav-menu>li").hover(function () {
+        $(this).children('ul').stop(true, true).show();
+        $(this).addClass('nav-show').siblings('li').removeClass('nav-show');
 
-    	
-	$(".nav-menu>li").hover(function(){
-		$(this).children('ul').stop(true,true).show();
-		 $(this).addClass('nav-show').siblings('li').removeClass('nav-show');
-		
-	},function(){
-		$(this).children('ul').stop(true,true).hide();
-		$('.nav-item.nav-show').removeClass('nav-show');
-	})
-	
-    $('.m-nav-item>a').on('click',function(){
-            if ($(this).next('ul').css('display') == "none") {
-                $('.m-nav-item').children('ul').slideUp(300);
-                $(this).next('ul').slideDown(100);
-                $(this).parent('li').addClass('m-nav-show').siblings('li').removeClass('m-nav-show');
-            }else{
-                $(this).next('ul').slideUp(100);
-                $('.m-nav-item.m-nav-show').removeClass('m-nav-show');
-            }
+    }, function () {
+        $(this).children('ul').stop(true, true).hide();
+        $('.nav-item.nav-show').removeClass('nav-show');
+    })
+
+    $('.m-nav-item>a').on('click', function () {
+        if ($(this).next('ul').css('display') == "none") {
+            $('.m-nav-item').children('ul').slideUp(300);
+            $(this).next('ul').slideDown(300);
+            $(this).parent('li').addClass('m-nav-show').siblings('li').removeClass('m-nav-show');
+        } else {
+            $(this).next('ul').slideUp(300);
+            $('.m-nav-item.m-nav-show').removeClass('m-nav-show');
+        }
     });
 });
